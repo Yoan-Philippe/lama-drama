@@ -53,8 +53,10 @@ export class Player extends Phaser.GameObjects.Sprite {
       this.cursors.right.isDown &&
       this.x < this.scene.sys.canvas.width - this.width / 2
     ) {
+      this.flipX = false;
       this.body.setVelocityX(100);
     } else if (this.cursors.left.isDown && this.x > this.width / 2) {
+      this.flipX = true;
       this.body.setVelocityX(-100);
     } else {
       this.body.setVelocityX(0);
