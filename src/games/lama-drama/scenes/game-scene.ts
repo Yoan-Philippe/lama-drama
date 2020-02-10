@@ -40,12 +40,12 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
 
-    this.platforms = this.add.image(400, 568, 'ground').setScale(2);
-
+    this.platforms = this.matter.add.image(400, 568, 'ground').setScale(2);
+    this.matter.world.setBounds(0, 0, 800, 600, 32, true, true, false, true);
     this.player = new Player({
       scene: this,
-      x: 50,
-      y: this.scene.systems.canvas.height -200,
+      x: 200,
+      y: 200,
       key: 'player'
     });
 
@@ -60,13 +60,13 @@ export class GameScene extends Phaser.Scene {
 
     //this.physics.add.collider(this.enemies, this.platforms);
     //this.physics.add.collider(this.player, this.platforms);
-    
+
   }
 
   update(): void {
 
-    if (this.player.active) {
-      this.player.update();
+    //if (this.player.active) {
+      //this.player.update();
 
       /*this.enemies.children.each((enemy: Enemy) => {
         enemy.update();
@@ -80,7 +80,7 @@ export class GameScene extends Phaser.Scene {
       }, this);*/
 
       //this.checkCollisions();
-    }
+    //}
 
   }
 
