@@ -6,7 +6,7 @@ export class Player extends Phaser.GameObjects.Sprite {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   private lastShoot: number;
   private shootingKey: Phaser.Input.Keyboard.Key;
-  public getBullets(): Phaser.GameObjects.Group {
+  public getSpits(): Phaser.GameObjects.Group {
     return this.spits;
   }
   constructor(params) {
@@ -82,6 +82,10 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.lastShoot = this.scene.time.now + 500;
       }
     }
+  }
+
+  public dying(): void {
+    this.destroy();
   }
 
 }
