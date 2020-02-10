@@ -61,6 +61,10 @@ export class Player extends Phaser.GameObjects.Sprite {
     } else {
       this.body.setVelocityX(0);
     }
+
+    if (this.cursors.up.isDown && this.y > 300) {
+      this.body.setVelocityY(-200);
+    }
   }
 
   private handleShooting(): void {
