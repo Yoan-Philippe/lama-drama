@@ -12,8 +12,8 @@
       },
       {
         "type": "image",
-        "key": "bullet",
-        "url": "./src/games/lama-drama/assets/bullet.png"
+        "key": "spit",
+        "url": "./src/games/lama-drama/assets/spit.png"
       },
       {
         "type": "spritesheet",
