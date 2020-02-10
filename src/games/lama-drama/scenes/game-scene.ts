@@ -6,18 +6,20 @@
 
 import { Player } from "../objects/player";
 
-export class MainScene extends Phaser.Scene {
+export class GameScene extends Phaser.Scene {
   private phaserSprite: Phaser.GameObjects.Sprite;
   private platforms: Phaser.GameObjects.Image;
   private player: Player;
 
   constructor() {
     super({
-      key: "MainScene"
+      key: "GameScene"
     });
   }
 
   preload(): void {
+
+    console.log('gameScene');
 
     this.load.image('ground', './src/games/lama-drama/assets/platform.png');
 
@@ -52,5 +54,5 @@ export class MainScene extends Phaser.Scene {
     }
 
   }
-  
+
 }
