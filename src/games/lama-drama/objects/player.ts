@@ -6,7 +6,7 @@ export class Player extends Phaser.GameObjects.Sprite {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   private lastShoot: number;
   private shootingKey: Phaser.Input.Keyboard.Key;
-  public getBullets(): Phaser.GameObjects.Group {
+  public getSpits(): Phaser.GameObjects.Group {
     return this.spits;
   }
   constructor(params) {
@@ -60,6 +60,10 @@ export class Player extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(-100);
     } else {
       this.body.setVelocityX(0);
+    }
+
+    if (this.cursors.up.isDown && this.y > 300) {
+      this.body.setVelocityY(-200);
     }
   }
 

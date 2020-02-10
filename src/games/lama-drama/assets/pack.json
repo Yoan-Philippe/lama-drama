@@ -6,8 +6,8 @@
         "key": "player",
         "url": "./src/games/lama-drama/assets/lama.png",
         "frameConfig": {
-          "frameWidth": 140,
-          "frameHeight": 140
+          "frameWidth": 110,
+          "frameHeight": 110
         }
       },
       {
@@ -20,8 +20,8 @@
         "key": "coyote",
         "url": "./src/games/lama-drama/assets/coyote.png",
         "frameConfig": {
-          "frameWidth": 11,
-          "frameHeight": 8
+          "frameWidth": 400,
+          "frameHeight": 200
         }
       }
     ]
