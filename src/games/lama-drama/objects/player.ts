@@ -1,6 +1,6 @@
 import { Spit } from "./spit";
 
-export class Player extends Phaser.GameObjects.Sprite {
+export class Player extends Phaser.Physics.Matter.Sprite {
   body!: Phaser.Physics.Arcade.Body;
   private spits: Phaser.GameObjects.Group;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -10,14 +10,17 @@ export class Player extends Phaser.GameObjects.Sprite {
     return this.spits;
   }
   constructor(params) {
-    super(params.scene, params.x, params.y, params.key);
+
+    super(params.scene.matter.world, params.x, params.y, params.key);
 
     this.initVariables();
     this.initImage();
     this.initInput();
     this.initPhysics();
 
+    params.scene.add.existing(this)
     this.scene.add.existing(this);
+
   }
 
   private initVariables(): void {
@@ -28,7 +31,7 @@ export class Player extends Phaser.GameObjects.Sprite {
   }
 
   private initImage(): void {
-    
+
   }
 
   private initInput(): void {
@@ -39,8 +42,10 @@ export class Player extends Phaser.GameObjects.Sprite {
   }
 
   private initPhysics(): void {
-    //this.scene.physics.world.enable(this);
-    this.setSize(0.8,0.3);
+    console.log(this);
+    this.setBounce(1);
+    this.setFriction(0.05);
+
   };
 
   update(): void {
