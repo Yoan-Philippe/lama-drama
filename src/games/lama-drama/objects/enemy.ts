@@ -39,7 +39,13 @@ export class Enemy extends Phaser.GameObjects.Sprite {
 
   update(): void {
     if (this.active) {
-      this.body.setVelocityX(-this.speed);
+
+      if( (this.x + this.width/2) > 0){
+        this.body.setVelocityX(-this.speed);
+      }
+      else{
+        this.destroy();
+      }
     }
   }
 }

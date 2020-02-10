@@ -88,8 +88,4 @@ export class Player extends Phaser.GameObjects.Sprite {
     }
   }
 
-  public dying(): void {
-    this.destroy();
-  }
-
 }

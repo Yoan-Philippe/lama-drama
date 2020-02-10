@@ -94,13 +94,14 @@ export class GameScene extends Phaser.Scene {
     );
   }
 
-  private bulletHitEnemy(bullet, enemy): void {
-    bullet.destroy();
+  private bulletHitEnemy(spit, enemy): void {
+    spit.destroy();
     enemy.destroy();
   }
 
   private enemyHitPlayer(enemy, player): void {
     player.destroy();
+    this.scene.pause();
   }
 
 }
