@@ -39,13 +39,13 @@ export class Player extends Phaser.GameObjects.Sprite {
   }
 
   private initPhysics(): void {
-    this.scene.physics.world.enable(this);
+    //this.scene.physics.world.enable(this);
     this.setSize(0.8,0.3);
   };
 
   update(): void {
-    this.handleMovement();
-    this.handleShooting();
+    //this.handleMovement();
+    //this.handleShooting();
   }
 
   private handleMovement(): void {

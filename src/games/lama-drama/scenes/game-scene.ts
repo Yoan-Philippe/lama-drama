@@ -40,7 +40,7 @@ export class GameScene extends Phaser.Scene {
 
   create(): void {
 
-    this.platforms = this.physics.add.staticImage(400, 568, 'ground').setScale(2).refreshBody();
+    this.platforms = this.add.image(400, 568, 'ground').setScale(2);
 
     this.player = new Player({
       scene: this,
@@ -58,8 +58,8 @@ export class GameScene extends Phaser.Scene {
       })
     );
 
-    this.physics.add.collider(this.enemies, this.platforms);
-    this.physics.add.collider(this.player, this.platforms);
+    //this.physics.add.collider(this.enemies, this.platforms);
+    //this.physics.add.collider(this.player, this.platforms);
     
   }
 
@@ -68,7 +68,7 @@ export class GameScene extends Phaser.Scene {
     if (this.player.active) {
       this.player.update();
 
-      this.enemies.children.each((enemy: Enemy) => {
+      /*this.enemies.children.each((enemy: Enemy) => {
         enemy.update();
         this.physics.overlap(
           enemy,
@@ -77,9 +77,9 @@ export class GameScene extends Phaser.Scene {
           null,
           this
         );
-      }, this);
+      }, this);*/
 
-      this.checkCollisions();
+      //this.checkCollisions();
     }
 
   }

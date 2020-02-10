@@ -32,8 +32,8 @@ export class Enemy extends Phaser.GameObjects.Sprite {
   }
 
   private initPhysics(): void {
-    this.scene.physics.world.enable(this);
-    this.body.setSize(400, 200);
+    //this.scene.physics.world.enable(this);
+    //this.body.setSize(400, 200);
     this.setScale(0.5, 0.5);
   }
 
@@ -41,7 +41,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     if (this.active) {
 
       if( (this.x + this.width/2) > 0){
-        this.body.setVelocityX(-this.speed);
+        //this.body.setVelocityX(-this.speed);
       }
       else{
         this.destroy();
