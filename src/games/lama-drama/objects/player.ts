@@ -72,6 +72,7 @@ export class Player extends Phaser.GameObjects.Sprite {
             x: this.x + 20,
             y: this.y - 30,
             key: "spit",
+            direction: (this.flipX) ? 1 : -1,
             spitProperties: {
               speed: -500
             }

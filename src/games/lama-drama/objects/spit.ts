@@ -4,11 +4,11 @@ export class Spit extends Phaser.GameObjects.Image {
   private spitSpeed: number;
 
   constructor(params) {
-    super(params.scene, params.x, params.y, params.key);
+    super(params.scene, params.x, params.y, params.key, params.direction);
 
     this.initVariables(params);
     this.initImage();
-    this.initPhysics();
+    this.initPhysics(params.direction);
 
     this.scene.add.existing(this);
   }
@@ -21,9 +21,9 @@ export class Spit extends Phaser.GameObjects.Image {
     
   }
 
-  private initPhysics(): void {
+  private initPhysics(direction): void {
     this.scene.physics.world.enable(this);
-    this.body.setVelocityX(-this.spitSpeed);
+    this.body.setVelocityX(this.spitSpeed * direction);
     this.body.setSize(1, 8);
     this.body.gravity.y = -200;
   }
