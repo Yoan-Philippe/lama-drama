@@ -13,7 +13,7 @@
       {
         "type": "image",
         "key": "bullet",
-        "url": "./src/games/lama-drama/assets/sprites/bullet.png"
+        "url": "./src/games/lama-drama/assets/bullet.png"
       },
       {
         "type": "spritesheet",
