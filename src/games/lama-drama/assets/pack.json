@@ -1,0 +1,29 @@
+{
+  "preload": {
+    "files": [
+      {
+        "type": "spritesheet",
+        "key": "player",
+        "url": "./src/games/lama-drama/assets/lama.png",
+        "frameConfig": {
+          "frameWidth": 140,
+          "frameHeight": 140
+        }
+      },
+      {
+        "type": "image",
+        "key": "bullet",
+        "url": "./src/games/lama-drama/assets/sprites/bullet.png"
+      },
+      {
+        "type": "spritesheet",
+        "key": "coyote",
+        "url": "./src/games/lama-drama/assets/coyote.png",
+        "frameConfig": {
+          "frameWidth": 11,
+          "frameHeight": 8
+        }
+      }
+    ]
+  }
+}

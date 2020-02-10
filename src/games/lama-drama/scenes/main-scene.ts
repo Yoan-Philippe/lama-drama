@@ -4,10 +4,12 @@
  * @license      {@link https://github.com/digitsensitive/phaser3-typescript/blob/master/LICENSE.md | MIT License}
  */
 
+import { Player } from "../objects/player";
+
 export class MainScene extends Phaser.Scene {
   private phaserSprite: Phaser.GameObjects.Sprite;
-  private scoreText: Phaser.GameObjects.Text;
   private platforms: Phaser.GameObjects.Image;
+  private player: Player;
 
   constructor() {
     super({
@@ -16,17 +18,39 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload(): void {
-    this.load.image("myImage", "./src/games/lama-drama/assets/phaser.png");
+
     this.load.image('ground', './src/games/lama-drama/assets/platform.png');
+
+    // load out package
+    this.load.pack(
+      "preload",
+      "./src/games/lama-drama/assets/pack.json",
+      "preload"
+    );
+
   }
 
   create(): void {
-    this.phaserSprite = this.physics.add.sprite(400, 300, 'myImage');
 
     this.platforms = this.physics.add.staticImage(400, 568, 'ground').setScale(2).refreshBody();
 
-    this.physics.add.collider(this.phaserSprite, this.platforms);
+    this.player = new Player({
+      scene: this,
+      x: 20,
+      y: 200,
+      key: 'player'
+    });
 
-    this.scoreText = this.add.text(16, 16, 'LAMA DRAMA', { fontSize: '32px', fill: '#fff' });
+    this.physics.add.collider(this.player, this.platforms);
   }
+
+  update(): void {
+
+
+    if (this.player.active) {
+      this.player.update();
+    }
+
+  }
+  
 }
