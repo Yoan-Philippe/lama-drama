@@ -15,11 +15,12 @@ const config: Phaser.Types.Core.GameConfig = {
   parent: "game",
   scene: MainScene,
   physics: {
-    default: 'matter',
-      matter: {
-        enableSleeping: true
-      }
-  },
+    default: 'arcade',
+    arcade: {
+        gravity: { y: 300 },
+        debug: false
+    }
+},
 };
 
 export class Game extends Phaser.Game {
