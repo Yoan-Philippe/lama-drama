@@ -49,15 +49,8 @@ export class GameScene extends Phaser.Scene {
       key: 'player'
     });
 
-    this.enemies.add(
-      new Enemy({
-        scene: this,
-        player: this.player,
-        x: 600,
-        y: 400,
-        key: 'coyote'
-      })
-    );
+    this.createEnemy();
+    this.time.addEvent({ delay: 3000, callback: this.createEnemy, callbackScope: this, repeat: 5});
 
     this.physics.add.collider(this.enemies, this.platforms);
     this.physics.add.collider(this.player, this.platforms);
@@ -92,6 +85,18 @@ export class GameScene extends Phaser.Scene {
       this.bulletHitEnemy,
       null,
       this
+    );
+  }
+
+  private createEnemy(): void{
+    this.enemies.add(
+      new Enemy({
+        scene: this,
+        player: this.player,
+        x: this.scene.systems.canvas.width + 100,
+        y: 400,
+        key: 'coyote'
+      })
     );
   }
 
