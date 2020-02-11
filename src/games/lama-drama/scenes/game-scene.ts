@@ -12,6 +12,7 @@ export class GameScene extends Phaser.Scene {
   private enemies: Phaser.GameObjects.Group;
   private platforms: Phaser.GameObjects.Image;
   private player: Player;
+  private restartKey: Phaser.Input.Keyboard.Key;
 
   constructor() {
     super({
@@ -21,6 +22,10 @@ export class GameScene extends Phaser.Scene {
 
   init(): void {
     this.enemies = this.add.group({ runChildUpdate: true });
+
+    this.restartKey = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
   }
 
   preload(): void {
@@ -76,6 +81,10 @@ export class GameScene extends Phaser.Scene {
       this.checkCollisions();
     }
 
+    if (this.restartKey.isDown) {
+      this.scene.restart();
+    }
+
   }
 
   private checkCollisions(): void {
@@ -107,7 +116,6 @@ export class GameScene extends Phaser.Scene {
 
   private enemyHitPlayer(enemy, player): void {
     player.destroy();
-    this.scene.pause();
   }
 
 }

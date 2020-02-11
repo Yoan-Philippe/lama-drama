@@ -6,7 +6,7 @@ export class Player extends Phaser.GameObjects.Sprite {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   private lastShoot: number;
   private speed: number;
-  private shootingKey: Phaser.Input.Keyboard.Key;
+  private anglePointer : number;
   public getSpits(): Phaser.GameObjects.Group {
     return this.spits;
   }
@@ -27,6 +27,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     });
     this.lastShoot = 0;
     this.speed = 200;
+    this.anglePointer = 0;
   }
 
   private initImage(): void {
@@ -34,10 +35,11 @@ export class Player extends Phaser.GameObjects.Sprite {
   }
 
   private initInput(): void {
-    this.cursors = this.scene.input.keyboard.createCursorKeys();
-    this.shootingKey = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE
-    );
+    this.cursors = this.scene.input.keyboard.addKeys(
+      {up:Phaser.Input.Keyboard.KeyCodes.W,
+      down:Phaser.Input.Keyboard.KeyCodes.S,
+      left:Phaser.Input.Keyboard.KeyCodes.A,
+      right:Phaser.Input.Keyboard.KeyCodes.D});
   }
 
   private initPhysics(): void {
@@ -70,24 +72,36 @@ export class Player extends Phaser.GameObjects.Sprite {
   }
 
   private handleShooting(): void {
-    if (this.shootingKey.isDown && this.scene.time.now > this.lastShoot) {
-      if (this.spits.getLength() < 1) {
-        this.spits.add(
-          new Spit({
-            scene: this.scene,
-            x: this.x + 20,
-            y: this.y - 30,
-            key: "spit",
-            direction: (this.flipX) ? 1 : -1,
-            spitProperties: {
-              speed: -500
-            }
-          })
-        );
 
-        this.lastShoot = this.scene.time.now + 500;
+    // Calculate angle from pointer
+    this.scene.input.on('pointermove', function (pointer) {
+      this.anglePointer = Phaser.Math.Angle.BetweenPoints(this, pointer);
+    }, this);
+
+    // Shoot spit on click
+    this.scene.input.on('pointerup', function () {
+
+      if (this.scene.time.now > this.lastShoot) {
+        if (this.spits.getLength() < 1) {
+          this.spits.add(
+            new Spit({
+              scene: this.scene,
+              x: this.x + 20,
+              y: this.y - 30,
+              key: "spit",
+              direction: (this.flipX) ? 1 : -1,
+              anglePointer : this.anglePointer,
+              spitProperties: {
+                speed: -500
+              }
+            })
+          );
+  
+          this.lastShoot = this.scene.time.now + 500;
+        }
       }
-    }
+
+    }, this);
   }
 
 }
