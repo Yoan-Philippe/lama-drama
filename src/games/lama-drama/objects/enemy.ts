@@ -1,12 +1,14 @@
 import { Spit } from "./spit";
+import { Player } from "./player";
 
 export class Enemy extends Phaser.GameObjects.Sprite {
   body!: Phaser.Physics.Arcade.Body;
   private enemyType: string;
   private speed: number;
+  private player: Player;
 
   constructor(params) {
-    super(params.scene, params.x, params.y, params.key);
+    super(params.scene,params.x, params.y, params.key);
 
     this.initVariables(params);
     this.initImage();
@@ -18,6 +20,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
   private initVariables(params): void {
     this.enemyType = params.key;
     this.speed = 100;
+    this.player = params.player;
 
     // set the characteristics of the specific enemy
     switch (this.enemyType) {
@@ -41,7 +44,14 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     if (this.active) {
 
       if( (this.x + this.width/2) > 0){
-        this.body.setVelocityX(-this.speed);
+
+        if(this.x > this.player.x){
+          this.body.setVelocityX(-this.speed);
+        }
+        else{
+          this.body.setVelocityX(this.speed);
+        }
+        
       }
       else{
         this.destroy();

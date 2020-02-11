@@ -5,6 +5,7 @@ export class Player extends Phaser.GameObjects.Sprite {
   private spits: Phaser.GameObjects.Group;
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   private lastShoot: number;
+  private speed: number;
   private shootingKey: Phaser.Input.Keyboard.Key;
   public getSpits(): Phaser.GameObjects.Group {
     return this.spits;
@@ -25,6 +26,7 @@ export class Player extends Phaser.GameObjects.Sprite {
       runChildUpdate: true
     });
     this.lastShoot = 0;
+    this.speed = 200;
   }
 
   private initImage(): void {
@@ -54,10 +56,10 @@ export class Player extends Phaser.GameObjects.Sprite {
       this.x < this.scene.sys.canvas.width - this.width / 2
     ) {
       this.flipX = false;
-      this.body.setVelocityX(100);
+      this.body.setVelocityX(this.speed);
     } else if (this.cursors.left.isDown && this.x > this.width / 2) {
       this.flipX = true;
-      this.body.setVelocityX(-100);
+      this.body.setVelocityX(-this.speed);
     } else {
       this.body.setVelocityX(0);
     }

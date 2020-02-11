@@ -52,6 +52,7 @@ export class GameScene extends Phaser.Scene {
     this.enemies.add(
       new Enemy({
         scene: this,
+        player: this.player,
         x: 600,
         y: 400,
         key: 'coyote'
