@@ -14,7 +14,6 @@ export class Player extends Phaser.GameObjects.Sprite {
     super(params.scene, params.x, params.y, params.key);
 
     this.initVariables();
-    this.initImage();
     this.initInput();
     this.initPhysics();
 
@@ -28,10 +27,6 @@ export class Player extends Phaser.GameObjects.Sprite {
     this.lastShoot = 0;
     this.speed = 200;
     this.anglePointer = 0;
-  }
-
-  private initImage(): void {
-    
   }
 
   private initInput(): void {
@@ -54,12 +49,12 @@ export class Player extends Phaser.GameObjects.Sprite {
 
   private handleMovement(): void {
     if (
-      this.cursors.right.isDown &&
-      this.x < this.scene.sys.canvas.width - this.width / 2
+      this.cursors.right.isDown /*&&
+      this.x < this.scene.sys.canvas.width - this.width / 2*/
     ) {
       this.flipX = false;
       this.body.setVelocityX(this.speed);
-    } else if (this.cursors.left.isDown && this.x > this.width / 2) {
+    } else if (this.cursors.left.isDown /*&& this.x > this.width / 2*/) {
       this.flipX = true;
       this.body.setVelocityX(-this.speed);
     } else {
@@ -81,8 +76,7 @@ export class Player extends Phaser.GameObjects.Sprite {
     // Shoot spit on click
     this.scene.input.on('pointerup', function () {
 
-      if (this.scene.time.now > this.lastShoot) {
-        if (this.spits.getLength() < 1) {
+      if (this.active && this.scene.time.now > this.lastShoot) {
           this.spits.add(
             new Spit({
               scene: this.scene,
@@ -96,11 +90,8 @@ export class Player extends Phaser.GameObjects.Sprite {
               }
             })
           );
-  
           this.lastShoot = this.scene.time.now + 500;
-        }
       }
-
     }, this);
   }
 

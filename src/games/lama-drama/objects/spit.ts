@@ -7,7 +7,6 @@ export class Spit extends Phaser.GameObjects.Image {
     super(params.scene, params.x, params.y, params.key);
 
     this.initVariables(params);
-    this.initImage();
     this.initPhysics(params);
 
     this.scene.add.existing(this);
@@ -15,10 +14,6 @@ export class Spit extends Phaser.GameObjects.Image {
 
   private initVariables(params): void {
     this.spitSpeed = params.spitProperties.speed;
-  }
-
-  private initImage(): void {
-    
   }
 
   private initPhysics(params): void {

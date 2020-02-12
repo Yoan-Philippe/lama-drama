@@ -55,10 +55,13 @@ export class GameScene extends Phaser.Scene {
     });
 
     this.createEnemy();
-    this.time.addEvent({ delay: 3000, callback: this.createEnemy, callbackScope: this, repeat: 5});
+    this.time.addEvent({ delay: 3000, callback: this.createEnemy, callbackScope: this, repeat: 4});
 
     this.physics.add.collider(this.enemies, this.platforms);
     this.physics.add.collider(this.player, this.platforms);
+
+    this.cameras.main.setBounds(0, 0, 1920 * 2, 1080 * 2);
+    this.cameras.main.startFollow(this.player, true, 0.05, 0.05);
     
   }
 
