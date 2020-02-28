@@ -37,7 +37,7 @@ export class Enemy extends Phaser.GameObjects.Sprite {
   private initPhysics(): void {
     this.scene.physics.world.enable(this);
     this.body.setSize(400, 200);
-    this.setScale(0.5, 0.5);
+    this.setScale(0.4, 0.4);
   }
 
   update(): void {

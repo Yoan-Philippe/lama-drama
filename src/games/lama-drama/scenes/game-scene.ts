@@ -6,6 +6,7 @@
 
 import { Player } from "../objects/player";
 import { Enemy } from "../objects/enemy";
+import { CONST } from "../const/const";
 
 export class GameScene extends Phaser.Scene {
   private phaserSprite: Phaser.GameObjects.Sprite;
@@ -13,6 +14,12 @@ export class GameScene extends Phaser.Scene {
   private platforms: Phaser.GameObjects.Image;
   private player: Player;
   private restartKey: Phaser.Input.Keyboard.Key;
+  private score: number;
+  private highestScore: number;
+  private resultText: Phaser.GameObjects.Text;
+  private gameOverText: Phaser.GameObjects.Text;
+  private highestScoreText: Phaser.GameObjects.Text;
+  
 
   constructor() {
     super({
@@ -24,7 +31,7 @@ export class GameScene extends Phaser.Scene {
     this.enemies = this.add.group({ runChildUpdate: true });
 
     this.restartKey = this.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE
+      Phaser.Input.Keyboard.KeyCodes.ESC
     );
   }
 
@@ -44,6 +51,20 @@ export class GameScene extends Phaser.Scene {
   }
 
   create(): void {
+
+    this.score = CONST.SCORE;
+    let scoreSaved = localStorage.getItem('highest');
+    this.highestScore = (scoreSaved) ? parseInt(scoreSaved) : 0;
+
+    var resultText: string = 'Score: ' + this.score;
+    this.resultText = this.add.text(20, 20, resultText,
+      { font: '35px Arial Bold', fill: '#FBFBAC' });
+    this.resultText.setScrollFactor(0, 0);
+
+    var highestScoreText: string = 'Highest: ' + this.highestScore;
+    this.highestScoreText = this.add.text(600, 20, highestScoreText,
+      { font: '35px Arial Bold', fill: '#FBFBAC' });
+    this.highestScoreText.setScrollFactor(0, 0);
 
     this.platforms = this.physics.add.staticImage(400, 568, 'ground').setScale(2).refreshBody();
 
@@ -85,6 +106,7 @@ export class GameScene extends Phaser.Scene {
     }
 
     if (this.restartKey.isDown) {
+      this.updateScore(0);
       this.scene.restart();
     }
 
@@ -113,12 +135,31 @@ export class GameScene extends Phaser.Scene {
   }
 
   private bulletHitEnemy(spit, enemy): void {
+    this.updateScore(CONST.ENEMYPOINTS);
     spit.destroy();
     enemy.destroy();
   }
 
   private enemyHitPlayer(enemy, player): void {
+
+    var gameOverText: string = 'GAME OVER.. Try again [ESC]';
+    this.gameOverText = this.add.text(200, 300, gameOverText,
+      { font: '30px Arial Bold', fill: '#1a1a1a' });
+
     player.destroy();
+  }
+
+  private updateScore(score: number) {
+    this.score += score;
+    CONST.SCORE = score;
+    this.resultText.setText("Score: " + this.score);
+
+    if(this.score > this.highestScore){
+      this.highestScore = this.score;
+      this.highestScoreText.setText("Highest: " + this.score.toString());
+      localStorage.setItem('highest', this.score.toString());
+    }
+
   }
 
 }

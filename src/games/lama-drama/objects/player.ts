@@ -70,7 +70,10 @@ export class Player extends Phaser.GameObjects.Sprite {
 
     // Calculate angle from pointer
     this.scene.input.on('pointermove', function (pointer) {
-      this.anglePointer = Phaser.Math.Angle.BetweenPoints(this, pointer);
+      if(this.scene){
+        let mouse = pointer
+        this.anglePointer = Phaser.Math.Angle.Between(this.x, this.y, mouse.x + this.scene.cameras.main.scrollX, mouse.y + this.scene.cameras.main.scrollY);
+      }
     }, this);
 
     // Shoot spit on click
@@ -82,8 +85,8 @@ export class Player extends Phaser.GameObjects.Sprite {
               scene: this.scene,
               x: this.x + 20,
               y: this.y - 30,
+              timeKill: this.scene.time.now + 2000,
               key: "spit",
-              direction: (this.flipX) ? 1 : -1,
               anglePointer : this.anglePointer,
               spitProperties: {
                 speed: -500
